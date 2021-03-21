@@ -1,12 +1,27 @@
 server:
   port: 8080
 spring:
+  devtools:
+    restart:
+      enabled: true  #设置开启热部署
+    freemarker:
+      cache: false    #页面不加载缓存，修改即时生效
+
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
-    mode: HTML5
+    mode: HTML
     encoding: UTF-8
-  security:
-    user:
-      name: admin
-      password: 123456
+#  security:
+#    user:
+#      name: admin
+#      password: 123456
+  datasource:
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: classpath:/mapping/*.xml
+  type-aliases-package: com.lyontang.debtmanage.entity

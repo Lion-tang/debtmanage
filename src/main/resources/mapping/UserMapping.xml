@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyontang.debtmanage.mapper.UserMapper">
+
+    <select id="findAllUser" resultType="com.lyontang.debtmanage.entity.User">
+        select * from sys_user
+    </select>
+
+    <select id="findUserByName" parameterType="java.lang.String" resultType="com.lyontang.debtmanage.entity.User">
+        select * from sys_user where userName = #{userName}
+    </select>
+
+    <select id="findUserRoleByName" parameterType="java.lang.String" resultType="com.lyontang.debtmanage.entity.VO.UserRole">
+        select userName,roleName from sys_user u,sys_role r where userName = #{userName} and r.rId = u.rId
+    </select>
+
+    <!--插入用户，用户rid默认1-->
+    <insert id="addUser" parameterType="java.lang.String" >
+        insert  into sys_user(uId,userName,password,rId) values ( null,#{userName},#{password},1 )
+    </insert>
+
+    <delete id="deleteUser" parameterType="java.lang.String">
+        delete from sys_user where userName=#{userName}
+    </delete>
+
+    <update id="updateUser" parameterType="java.lang.String">
+        update sys_user set password=#{password} where userName=#{userName}
+    </update>
+
+</mapper>
