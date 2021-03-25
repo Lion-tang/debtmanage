@@ -23,22 +23,29 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/index").access("hasRole('USER') or hasRole('ADMIN')")
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/index/**").access("hasRole('USER') or hasRole('ADMIN')")
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
-                .defaultSuccessUrl("/index")
+                .successHandler(new LoginSuccessHandler())
+                .permitAll()
                 .and()
                 .logout()
                 .permitAll()
+                .logoutSuccessUrl("/login")
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
                 .and()
+                .headers()
+                .frameOptions()
+                .disable()
+                .and()
                 .csrf()
                 .disable()
-                .rememberMe();
+                .rememberMe()
+                ;
 
 
     }

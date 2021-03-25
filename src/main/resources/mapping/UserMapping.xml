@@ -2,6 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lyontang.debtmanage.mapper.UserMapper">
 
+
+
+
     <select id="findAllUser" resultType="com.lyontang.debtmanage.entity.User">
         select * from sys_user
     </select>
@@ -10,21 +13,57 @@
         select * from sys_user where userName = #{userName}
     </select>
 
-    <select id="findUserRoleByName" parameterType="java.lang.String" resultType="com.lyontang.debtmanage.entity.VO.UserRole">
-        select userName,roleName from sys_user u,sys_role r where userName = #{userName} and r.rId = u.rId
+    <select id="findUserRolePhoneByName" parameterType="java.lang.String" resultType="com.lyontang.debtmanage.entity.UserRolePhone">
+        select userName,roleName,phone from sys_user u,sys_role r where userName = #{userName} and r.rId = u.rId
+    </select>
+
+    <select id="findAllUserRolePhone" resultType="com.lyontang.debtmanage.entity.UserRolePhone">
+        select userName,roleName,phone from sys_user u,sys_role r where r.rId=u.rId
     </select>
 
     <!--插入用户，用户rid默认1-->
     <insert id="addUser" parameterType="java.lang.String" >
-        insert  into sys_user(uId,userName,password,rId) values ( null,#{userName},#{password},1 )
+        insert  into sys_user(uId,userName,password,phone,rId) values ( null,#{userName},#{password},#{phone},1 )
     </insert>
 
     <delete id="deleteUser" parameterType="java.lang.String">
         delete from sys_user where userName=#{userName}
     </delete>
 
+
+    <!--模糊修改-->
     <update id="updateUser" parameterType="java.lang.String">
-        update sys_user set password=#{password} where userName=#{userName}
+        update sys_user
+        <set>
+            <if test="password!=null and password!=''">
+                password=#{password},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone=#{phone},
+            </if>
+        </set>
+        where userName=#{userName}
     </update>
+
+
+    <!--模糊查找-->
+    <!--查询条件-->
+    <sql id="condition">
+        <trim >
+            <if test="userName!=null and userName!=''">
+                and userName like concat('%',#{userName},'%')
+            </if>
+            <if test="phone!=null and phone!= '' ">
+                and phone like concat('%',#{phone},'%')
+            </if>
+        </trim>
+    </sql>
+    <select id="findByCondition" resultType="com.lyontang.debtmanage.entity.UserRolePhone" parameterType="java.lang.String">
+        select userName,phone,roleName from sys_user u ,sys_role r where r.rId=u.rId <include refid="condition"></include>
+    </select>
+
+    <select id="findByConditionCount" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+        select count(*) from sys_user u ,sys_role r where r.rId=u.rId <include refid="condition"></include>
+    </select>
 
 </mapper>

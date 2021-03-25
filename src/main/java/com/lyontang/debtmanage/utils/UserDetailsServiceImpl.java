@@ -9,8 +9,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,7 +30,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return null;
         }
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        String roleName = userService.findUserRoleByName(userName).getRoleName();
+        String roleName = userService.findUserRolePhoneByName(userName).getRoleName();
         if ("admin".equals(roleName)) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         } else  {

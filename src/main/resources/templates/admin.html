@@ -5,11 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>管理员子系统</title>
   <link rel="stylesheet" href="layui/css/layui.css">
-
+  <link rel="shortcut icon" href="../resources/favicon.ico" th:href="@{/static/favicon.ico}"/>
+  <script src="layui/jquery.js"></script>
   <script>
-    // function change(title) {
-    //   $
-    // }
+    function change(title) {
+      let url = title+"";
+      $('iframe').attr('src',url);
+    }
+
   </script>
   <script src="layui/jquery.js"></script>
 </head>
@@ -17,31 +20,33 @@
 
 <div class="layui-layout layui-layout-admin">
   <div class="layui-header">
-    <div class="layui-logo">layui 管理布局</div>
+    <div class="layui-logo">驾校信息管理系统</div>
+
     <!-- 头部区域（可配合layui已有的水平导航） -->
-    <ul class="layui-nav layui-layout-left">
-      <li class="layui-nav-item"><a href="" >控制台</a></li>
-      <li class="layui-nav-item"><a href="">商品管理</a></li>
-      <li class="layui-nav-item"><a href="">用户</a></li>
-      <li class="layui-nav-item">
-        <a href="javascript:;">其它系统</a>
-        <dl class="layui-nav-child">
-          <dd><a href="">邮件管理</a></dd>
-          <dd><a href="">消息管理</a></dd>
-          <dd><a href="">授权管理</a></dd>
-        </dl>
-      </li>
-    </ul>
+    <!--<ul class="layui-nav layui-layout-left">-->
+      <!--<li class="layui-nav-item"><a href="" >控制台</a></li>-->
+      <!--<li class="layui-nav-item"><a href="">商品管理</a></li>-->
+      <!--<li class="layui-nav-item"><a href="">用户</a></li>-->
+      <!--<li class="layui-nav-item">-->
+        <!--<a href="javascript:;">其它系统</a>-->
+        <!--<dl class="layui-nav-child">-->
+          <!--<dd><a href="">邮件管理</a></dd>-->
+          <!--<dd><a href="">消息管理</a></dd>-->
+          <!--<dd><a href="">授权管理</a></dd>-->
+        <!--</dl>-->
+      <!--</li>-->
+    <!--</ul>-->
+
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
           <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-          贤心
+          管理员
         </a>
-        <dl class="layui-nav-child">
-          <dd><a href="">基本资料</a></dd>
-          <dd><a href="">安全设置</a></dd>
-        </dl>
+        <!--<dl class="layui-nav-child">-->
+          <!--<dd><a href="">基本资料</a></dd>-->
+          <!--<dd><a href="">安全设置</a></dd>-->
+        <!--</dl>-->
       </li>
       <li class="layui-nav-item"><a href="/logout">退出</a></li>
     </ul>
@@ -52,19 +57,21 @@
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree"  lay-filter="test">
         <li class="layui-nav-item layui-nav-itemed">
-          <a class="" href="javascript:;">所有商品</a>
+          <a class="" href="javascript:;">代理驾校管理</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:;" onclick="change('table')">列表一</a></dd>
-            <dd><a href="javascript:;">列表二</a></dd>
-            <dd><a href="javascript:;">列表三</a></dd>
-            <dd><a href="">超链接</a></dd>
+            <dd class="layui-this"><a href="javascript:;" onclick="change('showusers')">搜索用户</a></dd>
+            <dd><a href="javascript:;" onclick="change('manageusers')">管理所有用户</a></dd>
+
+            <!--<dd><a href="">超链接</a></dd>-->
           </dl>
         </li>
         <li class="layui-nav-item">
-          <a href="javascript:;">解决方案</a>
+          <a href="javascript:;">学员管理</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:;">列表一</a></dd>
-            <dd><a href="javascript:;">列表二</a></dd>
+            <dd><a href="javascript:;">查询学员</a></dd>
+            <dd><a href="javascript:;">批示学员删除请求</a></dd>
+            <dd><a href="javascript:;">饼状图分析</a></dd>
+            <dd><a href="javascript:;">折线图分析</a></dd>
             <dd><a href="">超链接</a></dd>
           </dl>
         </li>
@@ -76,12 +83,12 @@
   
   <div class="layui-body">
     <!-- 内容主体区域 -->
-    <iframe src="./index.html" frameborder="0" id="demoAdmin" style="width: 100%; height: 600px;"></iframe>
+    <iframe src="" frameborder="0" id="demoAdmin" style="width: 100%; height: 600px;"></iframe>
   </div>
   
   <div class="layui-footer">
     <!-- 底部固定区域 -->
-    东方驾校信息管理系统
+    驾校信息管理系统 Copyright ©  2021
   </div>
 </div>
 <script src="layui/layui.js"></script>
@@ -94,4 +101,4 @@ layui.use('element', function(){
 });
 </script>
 </body>
-</html>
+</html>i/layu

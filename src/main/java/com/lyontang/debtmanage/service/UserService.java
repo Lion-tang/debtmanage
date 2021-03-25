@@ -1,10 +1,8 @@
 package com.lyontang.debtmanage.service;
 
-import com.lyontang.debtmanage.entity.Role;
 import com.lyontang.debtmanage.entity.User;
-import com.lyontang.debtmanage.entity.VO.UserRole;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.lyontang.debtmanage.entity.UserRolePhone;
+import com.lyontang.debtmanage.entity.VO.DataVO;
 
 import java.util.List;
 
@@ -14,12 +12,20 @@ public interface UserService {
 
     User findUserByName(String userName);
 
-    UserRole findUserRoleByName(String userName);
 
-    Integer addUser(String userName,String password);
+    Integer addUser(String userName,String password,String phone);
 
     Integer deleteUser(String userName);
 
-    Integer updateUser(String userName, String password);
+    Integer updateUser(String userName,String password, String phone);
+
+    UserRolePhone findUserRolePhoneByName(String userName);
+
+    DataVO<UserRolePhone> findAllUserRolePhoneVO(Integer page, Integer limit);
+
+    DataVO<UserRolePhone> findByConditionVO(Integer page,Integer limit,String userName, String phone);
+
+
+
 
 }

@@ -1,101 +1,116 @@
 package com.lyontang.debtmanage.controller;
 
-import com.lyontang.debtmanage.entity.Role;
-import com.lyontang.debtmanage.entity.User;
-import com.lyontang.debtmanage.entity.VO.UserRole;
-import com.lyontang.debtmanage.service.RoleService;
+import com.lyontang.debtmanage.entity.*;
+import com.lyontang.debtmanage.entity.VO.DataVO;
 import com.lyontang.debtmanage.service.UserService;
 import com.lyontang.debtmanage.utils.Md5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @Controller
+@RequestMapping("/admin")
 public class AdminHandler {
 
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private RoleService roleService;
 
-    //根据用户名查找用户
-    @RequestMapping("/findUserByName")
+
+
+    @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     @ResponseBody
-    public User findUserByName(String username) {
-        System.out.println(userService.findUserByName(username));
-        return userService.findUserByName(username);
-
-    }
-
-    //管理员查找所有用户
-    @RequestMapping("/findAllUser")
-    @ResponseBody
-    public List<User> findAllUser() {
-        System.out.println(userService.findAllUser());
-        return userService.findAllUser();
-    }
-
-    @RequestMapping("/findRole")
-    @ResponseBody
-    public List<Role> findRole() {
-        return roleService.findAllRole();
-    }
-
-    @RequestMapping("/findUserRoleByName")
-    @ResponseBody
-    public UserRole findUserRoleByName(String username) {
-        System.out.println(userService.findUserRoleByName(username));
-        return userService.findUserRoleByName(username);
-
-    }
-
-    @RequestMapping("/addUser")
-    @ResponseBody
-    public String addUser(String username,String password) {
-
-        if (userService.findUserByName(username) != null) {
-            return "用户已存在";
-        }
+    public RespEntity addUser(@RequestBody UserPasswordPhone userPasswordPhone) {
+        RespEntity resp = new RespEntity();
+        String userName = userPasswordPhone.getUserName();
+        String password = userPasswordPhone.getPassword();
+        String phone = userPasswordPhone.getPhone();
+        if (userService.findUserByName(userName) != null) {
+            resp.setCode(-1);
+            resp.setMsg("用户已存在");
+            return resp; }
 
         if (password == null) {
-            return "密码不能为空";
-        }
+            resp.setCode(-1);
+            resp.setMsg("密码不能为空");
+            return resp; }
+
         password = Md5Utils.code(password);
-        Integer resCode = userService.addUser(username,password);
+        Integer resCode = userService.addUser(userName,password,phone);
 
         if (resCode == 0) {
-            return "发生错误，用户添加失败";
-        }
-        return "用户添加成功";
+            resp.setCode(-1);
+            resp.setMsg("发生错误，用户添加失败");
+            return resp; }
+        //添加成功情况
+        resp.setCode(0);
+        resp.setMsg("用户添加成功");
+        return resp;
     }
 
     @RequestMapping("/deleteUser")
     @ResponseBody
-    public String deleteUser(String username) {
-
-        Integer resCode = userService.deleteUser(username);
+    public RespEntity deleteUser(@RequestBody String userName) {
+        RespEntity resp = new RespEntity();
+        Integer resCode = userService.deleteUser(userName);
          if (resCode == 0) {
-            return "用户不存在";
+             resp.setCode(-1);
+             resp.setMsg("用户不存在");
+            return resp;
         }
-        return "用户删除成功";
+         resp.setCode(0);
+         resp.setMsg("用户删除成功");
+        return resp;
     }
 
     @RequestMapping("/updateUser")
     @ResponseBody
-    public String updateUser(String username, String password) {
-        if (userService.findUserByName(username) == null) {
-            return "用户不存在";
+    public RespEntity updateUser(@RequestBody UserPasswordPhone userPasswordPhone) {
+        RespEntity resp = new RespEntity();
+        String userName = userPasswordPhone.getUserName();
+        String phone = userPasswordPhone.getPhone();
+        String password = null;
+        if (userService.findUserByName(userName) == null) {
+            resp.setMsg("用户不存在");
+            resp.setCode(-1);
+            return resp;
         }
-        password = Md5Utils.code(password);
-        Integer resCode = userService.updateUser(username,password);
-        if (resCode == 0) {
-            return "密码更新失败";
-        }
-        return "密码更新成功";
+        if (userPasswordPhone.getPassword() != null && !userPasswordPhone.getPassword().equals(""))
+        { password= Md5Utils.code(userPasswordPhone.getPassword());}
+            Integer resCode = userService.updateUser(userName, password, phone);
+            if (resCode == 0) {
+                resp.setCode(-1);
+                resp.setMsg("密码更新失败");
+                return resp;
+            }
+
+//        更新成功情况
+            resp.setCode(0);
+            resp.setMsg("密码更新成功");
+            return resp;
     }
 
+    @RequestMapping("/findUserRolePhoneByName")
+    @ResponseBody
+    public UserRolePhone findUserRolePhoneByName(String username) {
+//        System.out.println(userService.findUserRolePhoneByName(username));//后台输出角色名
+        return userService.findUserRolePhoneByName(username);
+
+    }
+
+    @RequestMapping("findAllUserRolePhoneVO")
+    @ResponseBody
+    public DataVO<UserRolePhone> findAllUserRolePhoneVO(Integer page,  Integer limit) {
+        return userService.findAllUserRolePhoneVO(page,limit);
+    }
+
+    @RequestMapping("findByConditionVO")
+    @ResponseBody
+    public DataVO<UserRolePhone> findByConditionVO(Integer page,Integer limit,String userName, String phone) {
+         return userService.findByConditionVO(page,limit,userName, phone);
+    }
 
 }

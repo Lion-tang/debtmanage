@@ -1,14 +1,10 @@
 package com.lyontang.debtmanage.entity;
 
-import com.lyontang.debtmanage.utils.Md5Utils;
 import lombok.Data;
 
 @Data
-public class User {
-    private Integer uId;
+public class UserPasswordPhone {
     private String userName;
     private String password;
     private String phone;
-    private Integer rId;
-
 }

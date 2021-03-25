@@ -1,8 +1,7 @@
 package com.lyontang.debtmanage.mapper;
 
 import com.lyontang.debtmanage.entity.User;
-import com.lyontang.debtmanage.entity.VO.UserRole;
-import com.sun.org.apache.xpath.internal.operations.Bool;
+import com.lyontang.debtmanage.entity.UserRolePhone;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,11 +12,19 @@ public interface UserMapper {
 
      User findUserByName(String userName);
 
-     UserRole findUserRoleByName(String userName);
-
-     Integer addUser(String userName,String password);
+     Integer addUser(String userName, String password, String phone);
 
      Integer deleteUser(String userName);
 
-     Integer updateUser(String userName, String password);
+     Integer updateUser(String userName,String password, String phone);
+
+     UserRolePhone findUserRolePhoneByName(String userName);
+
+     List<UserRolePhone> findAllUserRolePhone();
+
+     List<UserRolePhone> findByCondition(String userName,String phone);
+
+     Integer findByConditionCount(String userName, String phone);
+
+
 }

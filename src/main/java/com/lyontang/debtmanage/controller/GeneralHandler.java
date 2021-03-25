@@ -5,12 +5,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class LoginHandler {
+public class GeneralHandler {
 
     @RequestMapping("/{url}")
     public String getProperty(@PathVariable("url") String url) {
         return url;
     }
+
 
 
 }
