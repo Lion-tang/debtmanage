@@ -3,12 +3,6 @@
 <mapper namespace="com.lyontang.debtmanage.mapper.UserMapper">
 
 
-
-
-    <select id="findAllUser" resultType="com.lyontang.debtmanage.entity.User">
-        select * from sys_user
-    </select>
-
     <select id="findUserByName" parameterType="java.lang.String" resultType="com.lyontang.debtmanage.entity.User">
         select * from sys_user where userName = #{userName}
     </select>
@@ -62,8 +56,6 @@
         select userName,phone,roleName from sys_user u ,sys_role r where r.rId=u.rId <include refid="condition"></include>
     </select>
 
-    <select id="findByConditionCount" resultType="java.lang.Integer" parameterType="java.lang.Integer">
-        select count(*) from sys_user u ,sys_role r where r.rId=u.rId <include refid="condition"></include>
-    </select>
+
 
 </mapper>

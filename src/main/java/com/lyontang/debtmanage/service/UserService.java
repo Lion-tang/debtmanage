@@ -8,10 +8,8 @@ import java.util.List;
 
 
 public interface UserService {
-    List<User> findAllUser();
 
-    User findUserByName(String userName);
-
+    User findUserByName(String userName);//添加用户需要用到，验证是否存在相同用户名
 
     Integer addUser(String userName,String password,String phone);
 
@@ -19,7 +17,7 @@ public interface UserService {
 
     Integer updateUser(String userName,String password, String phone);
 
-    UserRolePhone findUserRolePhoneByName(String userName);
+    UserRolePhone findUserRolePhoneByName(String userName);//角色验证时需要用到，根据用户名查询用户的角色名
 
     DataVO<UserRolePhone> findAllUserRolePhoneVO(Integer page, Integer limit);
 

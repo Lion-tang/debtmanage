@@ -33,7 +33,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
             response.sendRedirect(basePath + "admin");
         } else {
         //用户跳到用户页面
-            response.sendRedirect(basePath + "index");
+            response.sendRedirect(basePath + "user");
         }
 
     }

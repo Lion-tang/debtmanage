@@ -18,9 +18,7 @@ public class AdminHandler {
     @Autowired
     private UserService userService;
 
-
-
-
+    //新增用户
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     @ResponseBody
     public RespEntity addUser(@RequestBody UserPasswordPhone userPasswordPhone) {
@@ -51,7 +49,8 @@ public class AdminHandler {
         return resp;
     }
 
-    @RequestMapping("/deleteUser")
+    //删除用户
+    @RequestMapping(value = "/deleteUser",method = RequestMethod.POST)
     @ResponseBody
     public RespEntity deleteUser(@RequestBody String userName) {
         RespEntity resp = new RespEntity();
@@ -66,7 +65,8 @@ public class AdminHandler {
         return resp;
     }
 
-    @RequestMapping("/updateUser")
+    //更新用户信息
+    @RequestMapping(value = "/updateUser",method = RequestMethod.POST)
     @ResponseBody
     public RespEntity updateUser(@RequestBody UserPasswordPhone userPasswordPhone) {
         RespEntity resp = new RespEntity();
@@ -83,31 +83,25 @@ public class AdminHandler {
             Integer resCode = userService.updateUser(userName, password, phone);
             if (resCode == 0) {
                 resp.setCode(-1);
-                resp.setMsg("密码更新失败");
+                resp.setMsg("更新失败");
                 return resp;
             }
 
 //        更新成功情况
             resp.setCode(0);
-            resp.setMsg("密码更新成功");
+            resp.setMsg("更新成功");
             return resp;
     }
 
-    @RequestMapping("/findUserRolePhoneByName")
-    @ResponseBody
-    public UserRolePhone findUserRolePhoneByName(String username) {
-//        System.out.println(userService.findUserRolePhoneByName(username));//后台输出角色名
-        return userService.findUserRolePhoneByName(username);
-
-    }
-
-    @RequestMapping("findAllUserRolePhoneVO")
+    //查找所有用户的信息
+    @RequestMapping(value = "findAllUserRolePhoneVO",method = RequestMethod.POST)
     @ResponseBody
     public DataVO<UserRolePhone> findAllUserRolePhoneVO(Integer page,  Integer limit) {
         return userService.findAllUserRolePhoneVO(page,limit);
     }
 
-    @RequestMapping("findByConditionVO")
+    //模糊查找用户信息
+    @RequestMapping(value = "findByConditionVO",method = RequestMethod.POST)
     @ResponseBody
     public DataVO<UserRolePhone> findByConditionVO(Integer page,Integer limit,String userName, String phone) {
          return userService.findByConditionVO(page,limit,userName, phone);

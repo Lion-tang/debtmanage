@@ -17,8 +17,6 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    @Override
-    public List<User> findAllUser() { return userMapper.findAllUser(); }
 
     @Override
     public User findUserByName(String userName) {
@@ -40,6 +38,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.updateUser(userName,password,phone);
     }
 
+    ////角色验证时需要用到，根据用户名查询用户的角色名
     @Override
     public UserRolePhone findUserRolePhoneByName(String userName) {
         return userMapper.findUserRolePhoneByName(userName);

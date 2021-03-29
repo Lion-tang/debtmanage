@@ -37,7 +37,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         }
         org.springframework.security.core.userdetails.User userdetail = new org.springframework.security.core.userdetails.User(user.getUserName(),passwordEncoder.encode(user.getPassword()),authorities);
-        System.out.println("管理员信息："+user.getUserName()+"   "+passwordEncoder.encode(user.getPassword())+"  "+userdetail.getAuthorities());
+//        System.out.println("登录信息："+user.getUserName()+"   "+passwordEncoder.encode(user.getPassword())+"  "+userdetail.getAuthorities());//后台调试输出登录者用户名、哈希密码、角色
         return userdetail;
 
     }

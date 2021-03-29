@@ -14,7 +14,7 @@
     }
 
   </script>
-  <script src="layui/jquery.js"></script>
+
 </head>
 <body class="layui-layout-body">
 
@@ -40,7 +40,7 @@
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
-          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          <img src="layui/images/face/admin.jpg" class="layui-nav-img">
           管理员
         </a>
         <!--<dl class="layui-nav-child">-->
@@ -59,8 +59,8 @@
         <li class="layui-nav-item layui-nav-itemed">
           <a class="" href="javascript:;">代理驾校管理</a>
           <dl class="layui-nav-child">
-            <dd class="layui-this"><a href="javascript:;" onclick="change('showusers')">搜索用户</a></dd>
-            <dd><a href="javascript:;" onclick="change('manageusers')">管理所有用户</a></dd>
+            <dd class="layui-this " ><a href="javascript:;" onclick="change('showuser')">搜索用户</a></dd>
+            <dd><a href="javascript:;" onclick="change('manageuser')">管理所有用户</a></dd>
 
             <!--<dd><a href="">超链接</a></dd>-->
           </dl>
@@ -83,7 +83,7 @@
   
   <div class="layui-body">
     <!-- 内容主体区域 -->
-    <iframe src="" frameborder="0" id="demoAdmin" style="width: 100%; height: 600px;"></iframe>
+    <iframe src="/showuser" frameborder="0" id="demoAdmin" style="width: 100%; height: 600px;"></iframe>
   </div>
   
   <div class="layui-footer">
@@ -101,4 +101,4 @@ layui.use('element', function(){
 });
 </script>
 </body>
-</html>i/layu
+</html>

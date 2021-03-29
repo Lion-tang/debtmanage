@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>申请删除学员</title>
+    <link rel="stylesheet" href="layui/css/layui.css">
+</head>
+<body>
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+    <legend>学员退档,有问题联系总校管理员,电话15200828888</legend>
+</fieldset>
+<!-- <table class="layui-hide" id="demo" lay-filter="test"></table> -->
+<table id="demo" lay-filter="test"></table>
+
+<script type="text/html" id="toolbarDemo">
+    <div class="layui-btn-container">
+    </div>
+</script>
+
+<script type="text/html" id="currentTableBar">
+    <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">撤销删除</a>
+</script>
+
+
+
+<script src="layui/layui.js"></script>
+<script>
+    layui.use(['table', 'jquery', 'layer', 'form'], function () {
+        var table = layui.table;
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+
+        //表格数据
+        table.render({
+            elem: '#demo'
+            , totalRow: true
+            , method: 'post'
+            , url: "/user/wantDeleteVO" //数据接口
+            , cols: [
+                [ //表头
+                    {type: 'checkbox', fixed: 'left'}
+                    , {field: 'studentName', title: '学员姓名', width: 180, fixed: 'left', align: "center", totalRowText: '合计'}
+                    , {field: 'idCard', title: '身份证号', width: 180, align: "center"}
+                    , {field: 'sex', title: '性别', width: 180, align: "center"}
+                    , {field: 'address', title: '地址', width: 180, align: "center"}
+                    , {field: 'phone', title: '电话号码', width: 180,  align: "center"}
+                    , {field: 'amount', title: '代理费', width: 180,  align: "center",totalRow: true}
+                    , {field: 'registerDate', title: '日期', width: 180, sort: true, align: "center"}
+                    , {title: '操作', minWidth: 50, templet: '#currentTableBar', fixed: "right", align: "center"}
+                ]
+            ]
+            , page: true //开启分页
+            , toolbar: '#toolbarDemo'//工具图标
+        });
+
+
+        //监听行工具事件
+        table.on('tool(test)', function (obj) {
+            var data = obj.data;
+            data = data.idCard;
+            // console.log("data数据为：", data);//调试对象
+            // console.log("学员名数据为：", data.userName);//调试对象
+            if (obj.event === 'delete') {
+                layer.confirm('真的撤销行么', function (index) {
+                    // obj.del();
+                    layer.close(index);
+                    recoverStudent(data);
+                });
+            }
+        });
+
+
+
+        //撤销删除学员
+        function recoverStudent(data) {
+
+            console.log('撤销的学员身份证为', data);
+            $.ajax({
+                method: 'post',
+                url: '/user/recoverStudent',
+                data: data,
+                contentType: 'application/json',
+                datatype: "json",
+                success: function (resp) {
+                    console.log(resp);
+                    if (resp.code == 0) {
+                        layer.msg(resp.msg, {icon: 6});
+                        //刷新数据
+                        $(".layui-laypage-btn").click();
+                    } else {
+                        layer.msg(resp.msg, {icon: 5});
+                    }
+                }
+            })
+            return false;
+        }
+    });
+</script>
+</body>
+</html>

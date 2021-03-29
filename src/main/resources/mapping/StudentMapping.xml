@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyontang.debtmanage.mapper.StudentMapper">
+
+    <!--根据电话号码精确查找学员-->
+    <select id="findByIdCard" parameterType="java.lang.String" resultType="com.lyontang.debtmanage.entity.Student">
+      select * from sys_student where idCard=#{idCard};
+    </select>
+
+   <insert id="addStudent" parameterType="com.lyontang.debtmanage.entity.Student">
+       insert into sys_student(studentName,sex,address,idCard,phone
+       ,amount,userName,registerDate) values (#{studentName},#{sex},#{address},#{idCard},#{phone},#{amount},#{userName},curdate())
+   </insert>
+
+    <update id="applyDeleteStudent" parameterType="java.util.List">
+        update  sys_student set wantDelete='Y'
+        <where>
+            <foreach collection="idCardList" open="idCard in (" close=")" item="idCard" separator=",">
+                #{idCard}
+            </foreach>
+        </where>
+    </update>
+
+    <update id="recoverStudent" parameterType="java.lang.String">
+        update  sys_student set wantDelete='N' where idCard=#{idCard}
+    </update>
+
+    <select id="findAllStudent" resultType="com.lyontang.debtmanage.entity.StudentInfo" parameterType="java.lang.String">
+        select studentName,idCard,sex,address,phone,amount,userName,registerDate from sys_student where userName=#{userName} and wantDelete=#{wantDelete}
+    </select>
+
+    <!--模糊查找-->
+    <!--查询条件-->
+    <sql id="condition">
+        <trim >
+
+            <if test="studentName!=null and studentName!=''">
+                and studentName like concat('%',#{studentName},'%')
+            </if>
+            <if test="idCard!=null and idCard!= '' ">
+                and idCard like concat('%',#{idCard},'%')
+            </if>
+            <if test="sex!=null and sex!= '' ">
+                and sex like concat('%',#{sex},'%')
+            </if>
+            <if test="address!=null and address!= '' ">
+                and address like concat('%',#{address},'%')
+            </if>
+            <if test="phone!=null and phone!= '' ">
+                and phone like concat('%',#{phone},'%')
+            </if>
+            <if test="amount!=null and amount!= '' ">
+                and amount like concat('%',#{amount},'%')
+            </if>
+            <!--<if test="registerDate!=null and registerDate!= '' ">-->
+                <!--and registerDate like concat('%',#{registerDate},'%')-->
+            <!--</if>-->
+
+        </trim>
+    </sql>
+
+    <select id="findByCondition" resultType="com.lyontang.debtmanage.entity.StudentInfo" parameterType="com.lyontang.debtmanage.entity.StudentInfo">
+        select studentName,idCard,sex,address,phone,amount,registerDate from sys_student where userName=#{userName} and wantDelete='N' <include refid="condition"></include>
+    </select>
+
+</mapper>

@@ -8,7 +8,6 @@ import java.util.List;
 
 @Repository
 public interface UserMapper {
-     List<User> findAllUser();
 
      User findUserByName(String userName);
 
@@ -24,7 +23,7 @@ public interface UserMapper {
 
      List<UserRolePhone> findByCondition(String userName,String phone);
 
-     Integer findByConditionCount(String userName, String phone);
+
 
 
 }
