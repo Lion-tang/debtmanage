@@ -14,6 +14,7 @@ public class Student {
     private String phone;
     private Integer amount;
     private String userName;
+    private String rId;
     private String wantDelete;
-    private Date registerDate;
+    private String registerDate;
 }

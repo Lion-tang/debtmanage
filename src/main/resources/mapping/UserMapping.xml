@@ -7,7 +7,8 @@
         select * from sys_user where userName = #{userName}
     </select>
 
-    <select id="findUserRolePhoneByName" parameterType="java.lang.String" resultType="com.lyontang.debtmanage.entity.UserRolePhone">
+    <select id="findUserRolePhoneByName" parameterType="java.lang.String"
+            resultType="com.lyontang.debtmanage.entity.UserRolePhone">
         select userName,roleName,phone from sys_user u,sys_role r where userName = #{userName} and r.rId = u.rId
     </select>
 
@@ -16,7 +17,7 @@
     </select>
 
     <!--插入用户，用户rid默认1-->
-    <insert id="addUser" parameterType="java.lang.String" >
+    <insert id="addUser" parameterType="java.lang.String">
         insert  into sys_user(uId,userName,password,phone,rId) values ( null,#{userName},#{password},#{phone},1 )
     </insert>
 
@@ -40,10 +41,10 @@
     </update>
 
 
-    <!--模糊查找-->
-    <!--查询条件-->
+    <!--模糊查找用户-->
+    <!--用户查询条件-->
     <sql id="condition">
-        <trim >
+        <trim>
             <if test="userName!=null and userName!=''">
                 and userName like concat('%',#{userName},'%')
             </if>
@@ -52,10 +53,85 @@
             </if>
         </trim>
     </sql>
-    <select id="findByCondition" resultType="com.lyontang.debtmanage.entity.UserRolePhone" parameterType="java.lang.String">
-        select userName,phone,roleName from sys_user u ,sys_role r where r.rId=u.rId <include refid="condition"></include>
+    <select id="findByCondition" resultType="com.lyontang.debtmanage.entity.UserRolePhone"
+            parameterType="java.lang.String">
+        select userName,phone,roleName from sys_user u ,sys_role r where r.rId=u.rId
+        <include refid="condition"></include>
     </select>
 
 
+    <!--管理员查找所有在籍学员-->
+    <sql id="studentcondition">
+        <where>
+            <if test="studentName!=null and studentName!=''">
+                and studentName like concat('%',#{studentName},'%')
+            </if>
+            <if test="idCard!=null and idCard!= '' ">
+                and idCard like concat('%',#{idCard},'%')
+            </if>
+            <if test="sex!=null and sex!= '' ">
+                and sex like concat('%',#{sex},'%')
+            </if>
+            <if test="address!=null and address!= '' ">
+                and address like concat('%',#{address},'%')
+            </if>
+            <if test="phone!=null and phone!= '' ">
+                and phone like concat('%',#{phone},'%')
+            </if>
+            <if test="amount!=null and amount!= '' ">
+                and amount like concat('%',#{amount},'%')
+            </if>
+            <if test="userName!=null and userName!= '' ">
+                and userName like concat('%',#{userName},'%')
+            </if>
+            <if test="rId!=null and rId!= '' ">
+                and rId like concat('%',#{rId},'%')
+            </if>
+            <if test="wantDelete!=null and wantDelete!= '' ">
+                and wantDelete like concat('%',#{wantDelete},'%')
+            </if>
+        </where>
+    </sql>
+
+    <select id="adminGetAllStudent" resultType="com.lyontang.debtmanage.entity.StudentInfo"
+            parameterType="com.lyontang.debtmanage.entity.Student">
+        select studentName,idCard,sex,address,phone,amount,registerDate,userName from sys_student
+        <include refid="studentcondition"></include>
+    </select>
+
+    <delete id="deleteStudent" parameterType="java.util.List">
+        delete from sys_student
+        <where>
+            <foreach collection="idCardList" open="idCard in (" close=")" item="idCard" separator=",">
+                #{idCard}
+            </foreach>
+        </where>
+    </delete>
+
+    <select id="getBarData" parameterType="java.lang.String" resultType="com.lyontang.debtmanage.entity.Bar">
+      select sum(amount) as 'amount',date_format(registerDate,'%Y-%m') as 'registerDate'
+      from sys_student where registerDate between #{startDate} and #{endDate}
+      group by date_format(registerDate,'%Y-%m') order by date_format(registerDate,'%Y-%m');
+    </select>
+
+    <select id="getPieData" parameterType="java.lang.String" resultType="com.lyontang.debtmanage.entity.Pie">
+        select userName as name, sum(amount) as value from sys_student where registerDate
+         between #{startDate} and #{endDate} group by userName order by sum(amount);
+    </select>
+
+    <!--查找不同代理处大数据量-->
+    <sql id="linecondition">
+        <trim>
+            <if test="userName!=null and userName!=''">
+                and userName =#{userName}
+            </if>
+        </trim>
+    </sql>
+
+    <select id="getLineData" parameterType="java.lang.String" resultType="com.lyontang.debtmanage.entity.Bar">
+        select   registerDate , sum(amount) as amount from sys_student where registerDate
+        between #{startDate} and #{endDate} <include refid="linecondition"></include>
+        group by registerDate order by registerDate;
+    </select>
 
 </mapper>

@@ -20,7 +20,7 @@
 </script>
 
 <script type="text/html" id="currentTableBar">
-    <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">撤销删除</a>
+    <a class="layui-btn layui-btn-xs  data-count-delete" lay-event="delete">撤销删除</a>
 </script>
 
 
@@ -67,7 +67,7 @@
                 layer.confirm('真的撤销行么', function (index) {
                     // obj.del();
                     layer.close(index);
-                    recoverStudent(data);
+                    recoverstudent(data);
                 });
             }
         });
@@ -75,12 +75,12 @@
 
 
         //撤销删除学员
-        function recoverStudent(data) {
+        function recoverstudent(data) {
 
             console.log('撤销的学员身份证为', data);
             $.ajax({
                 method: 'post',
-                url: '/user/recoverStudent',
+                url: '/admin/recoverStudent',
                 data: data,
                 contentType: 'application/json',
                 datatype: "json",

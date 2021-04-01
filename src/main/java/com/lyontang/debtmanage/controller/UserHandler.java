@@ -40,6 +40,7 @@ public class UserHandler {
             return resp;
         }
         student.setUserName(principal.getName());
+        student.setRId("1");
         Integer resCode = studentService.addStudent(student);
         if (resCode == 0) {
             resp.setMsg("发生异常,学员添加失败");
@@ -78,7 +79,7 @@ public class UserHandler {
         return studentService.findAllStudentVO(page, limit, userName, "Y");
     }
 
-    //该findByCondition和管理员的模糊查找不一样，不是一个请求
+    //该findByCondition和管理员的模糊查找不一样，不是同一个请求
     @RequestMapping(value = "/findByConditionVO",method = RequestMethod.POST)
     @ResponseBody
     public DataVO<StudentInfo> findByConditionVO( Integer page, Integer limit, StudentInfo studentInfo,Principal principal) {

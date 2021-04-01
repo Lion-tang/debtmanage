@@ -83,7 +83,7 @@
 
             <div class="layui-form-item" style="margin-top:40px">
                 <div class="layui-input-block">
-                    <button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="demo11">确认添加</button>
+                    <button class="layui-btn  layui-btn-submit " lay-submit="" lay-filter="demo11">确认</button>
                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                 </div>
             </div>
@@ -109,14 +109,14 @@
             , cols: [
                 [ //表头
                     {type: 'checkbox', fixed: 'left'}
-                    , {field: 'studentName', title: '学员姓名', width: 180, fixed: 'left', align: "center", totalRowText: '合计'}
-                    , {field: 'idCard', title: '身份证号', width: 180, align: "center"}
-                    , {field: 'sex', title: '性别', width: 180, align: "center"}
-                    , {field: 'address', title: '地址', width: 180, align: "center"}
-                    , {field: 'phone', title: '电话号码', width: 180,  align: "center"}
-                    , {field: 'amount', title: '代理费', width: 180,  align: "center",totalRow: true}
-                    , {field: 'registerDate', title: '日期', width: 180, sort: true, align: "center"}
-                    , {title: '操作', minWidth: 50, templet: '#currentTableBar', fixed: "right", align: "center"}
+                    , {field: 'studentName', title: '学员姓名', fixed: 'left', align: "center", totalRowText: '合计'}
+                    , {field: 'idCard', title: '身份证号',  align: "center"}
+                    , {field: 'sex', title: '性别',  align: "center"}
+                    , {field: 'address', title: '地址', align: "center"}
+                    , {field: 'phone', title: '电话号码',   align: "center"}
+                    , {field: 'amount', title: '代理费',  align: "center",totalRow: true}
+                    , {field: 'registerDate', title: '日期',  sort: true, align: "center"}
+                    , {title: '操作', minWidth: 90, templet: '#currentTableBar', fixed: "right", align: "center"}
                 ]
             ]
             , page: true //开启分页
@@ -144,7 +144,7 @@
                     });
                     break;
             }
-            ;
+
         });
         //监听行工具事件
         table.on('tool(test)', function (obj) {

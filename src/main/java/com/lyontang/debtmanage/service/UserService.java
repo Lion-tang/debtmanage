@@ -1,7 +1,7 @@
 package com.lyontang.debtmanage.service;
 
-import com.lyontang.debtmanage.entity.User;
-import com.lyontang.debtmanage.entity.UserRolePhone;
+import com.lyontang.debtmanage.entity.*;
+import com.lyontang.debtmanage.entity.VO.BarVO;
 import com.lyontang.debtmanage.entity.VO.DataVO;
 
 import java.util.List;
@@ -23,7 +23,13 @@ public interface UserService {
 
     DataVO<UserRolePhone> findByConditionVO(Integer page,Integer limit,String userName, String phone);
 
+    DataVO<StudentInfo> adminGetAllStudent(Integer page, Integer limit, Student student);
 
+    Integer deleteStudent(List<String> idCardList);
 
+    BarVO getBarData(String startDate, String endDate);
 
+    List<Pie> getPieData(String startDate, String endDate);
+
+    BarVO getLineData(String startDate, String endDate, String userName);
 }

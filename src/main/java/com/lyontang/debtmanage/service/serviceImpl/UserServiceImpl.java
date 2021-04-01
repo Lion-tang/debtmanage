@@ -2,14 +2,16 @@ package com.lyontang.debtmanage.service.serviceImpl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.lyontang.debtmanage.entity.User;
-import com.lyontang.debtmanage.entity.UserRolePhone;
+import com.lyontang.debtmanage.entity.*;
+import com.lyontang.debtmanage.entity.VO.BarVO;
 import com.lyontang.debtmanage.entity.VO.DataVO;
 import com.lyontang.debtmanage.mapper.UserMapper;
 import com.lyontang.debtmanage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -44,39 +46,83 @@ public class UserServiceImpl implements UserService {
         return userMapper.findUserRolePhoneByName(userName);
     }
 
+    //    减少设置VO重复代码
+    private  <T> DataVO<T> getDataVO(int count, List<T> list) {
+        DataVO<T> dataVO = new DataVO<>();
+        dataVO.setData(list);
+        dataVO.setCode(0);
+        dataVO.setCount(count);
+        dataVO.setMsg("");
+        return dataVO;
+    }
+
     @Override
     public DataVO<UserRolePhone> findAllUserRolePhoneVO(Integer page, Integer limit) {
-        DataVO<UserRolePhone> dataVO = new DataVO<>();
-        dataVO.setCode(0);
-        dataVO.setMsg("");
+
         //使用PageHelper插件分页，后面紧跟一个查询语句
         PageHelper.startPage(page, limit);
         List<UserRolePhone> list = userMapper.findAllUserRolePhone();
-        dataVO.setCount((int)((Page)list).getTotal());
-        dataVO.setData(list);
-        return dataVO;
+        int count =(int)((Page)list).getTotal();
+        return getDataVO(count, list);
     }
 
 
     @Override
     public DataVO<UserRolePhone> findByConditionVO(Integer page,Integer limit,String userName, String phone) {
-        DataVO<UserRolePhone> dataVO = new DataVO<>();
-        dataVO.setCode(0);
-        dataVO.setMsg("");
         PageHelper.startPage(page, limit);
         List<UserRolePhone> list = userMapper.findByCondition(userName, phone);
-        dataVO.setCount((int)((Page)list).getTotal());
-        dataVO.setData(list);
-        return dataVO;
+        int count = (int)((Page)list).getTotal();
+        return getDataVO(count,list);
     }
 
+    @Override
+    public DataVO<StudentInfo> adminGetAllStudent(Integer page, Integer limit, Student student) {
 
-    //查询所有用户数量，使用PageHelper之后就不需要在查一次sql了
-    // PageHelper会把相关分页信息(包括所有记录数)封装到Page中，强转为Page就可以使用
-//    @Override
-//    public Integer findUserNum() {
-//        return userMapper.findUserNum();
-//    }
+        //使用PageHelper插件分页，后面紧跟一个查询语句
+        PageHelper.startPage(page, limit);
+        List<StudentInfo> list = userMapper.adminGetAllStudent(student);
+        int count = (int)((Page)list).getTotal();
+        return getDataVO(count,list);
+    }
+
+    @Override
+    public Integer deleteStudent(List<String> idCardList) {
+        return userMapper.deleteStudent(idCardList);
+    }
+
+//    减少重复设置VO代码
+    private BarVO getBarVO(List list) {
+        BarVO barVO = new BarVO();
+        List<String> registerDates = new ArrayList<>();
+        List<Integer> amounts = new ArrayList<>();
+        Iterator iterator = list.iterator();
+        while (iterator.hasNext()) {
+            Bar bar = (Bar) iterator.next();
+            registerDates.add(bar.getRegisterDate());
+            amounts.add(bar.getAmount());
+        }
+        barVO.setRegisterDate(registerDates);
+        barVO.setAmount(amounts);
+        return barVO;
+    }
+
+    @Override
+    public BarVO getBarData(String startDate, String endDate) {
+        List<Bar> barList =  userMapper.getBarData(startDate, endDate);
+        return getBarVO(barList);
+}
+
+    @Override
+    public List<Pie> getPieData(String startDate, String endDate) {
+        return userMapper.getPieData(startDate,endDate);
+    }
+
+//    Line的数据结构和Bar类似，这里直接借用
+    @Override
+    public BarVO getLineData(String startDate, String endDate, String userName) {
+        List<Bar> lineList = userMapper.getLineData(startDate, endDate, userName);
+        return getBarVO(lineList);
+    }
 
 
 }

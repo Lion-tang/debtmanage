@@ -9,7 +9,7 @@
 
    <insert id="addStudent" parameterType="com.lyontang.debtmanage.entity.Student">
        insert into sys_student(studentName,sex,address,idCard,phone
-       ,amount,userName,registerDate) values (#{studentName},#{sex},#{address},#{idCard},#{phone},#{amount},#{userName},curdate())
+       ,amount,userName,rId,registerDate) values (#{studentName},#{sex},#{address},#{idCard},#{phone},#{amount},#{userName},#{rId},curdate())
    </insert>
 
     <update id="applyDeleteStudent" parameterType="java.util.List">
@@ -52,8 +52,8 @@
             <if test="amount!=null and amount!= '' ">
                 and amount like concat('%',#{amount},'%')
             </if>
-            <!--<if test="registerDate!=null and registerDate!= '' ">-->
-                <!--and registerDate like concat('%',#{registerDate},'%')-->
+            <!--<if test="rId!=null and rId!= '' ">-->
+                <!--and rId like concat('%',#{rId},'%')-->
             <!--</if>-->
 
         </trim>
