@@ -215,7 +215,7 @@
         form.on('submit(searchButton)', function (message) {
             // console.log(data.field);
             var field = message.field;
-            console.log(field);
+            // console.log(field);
             table.reload('testReload', {
                 url: '/admin/adminGetAllStudent'
                 ,method: 'post'
@@ -257,7 +257,7 @@
             form.on('submit(demo11)', function (message) {
                 // console.log(data.field);
                 var field = message.field;
-                console.log('添加数据为', field);
+                // console.log('添加数据为', field);
                 $.ajax({
                     method: "post",
                     url: "admin/addStudent",
@@ -265,7 +265,7 @@
                     contentType: 'application/json',
                     datatype: "json",
                     success: function (resp) {
-                        console.log(resp);
+                        // console.log(resp);
                         layer.closeAll();//关闭所有的弹出层
                         if (resp.code == 0) {
                             layer.msg(resp.msg, {icon: 6});

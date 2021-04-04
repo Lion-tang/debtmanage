@@ -77,7 +77,7 @@
         //撤销删除学员
         function recoverstudent(data) {
 
-            console.log('撤销的学员身份证为', data);
+            // console.log('撤销的学员身份证为', data);
             $.ajax({
                 method: 'post',
                 url: '/admin/recoverStudent',
@@ -85,7 +85,7 @@
                 contentType: 'application/json',
                 datatype: "json",
                 success: function (resp) {
-                    console.log(resp);
+                    // console.log(resp);
                     if (resp.code == 0) {
                         layer.msg(resp.msg, {icon: 6});
                         //刷新数据

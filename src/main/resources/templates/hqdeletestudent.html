@@ -151,7 +151,7 @@
         form.on('submit(searchButton)', function (message) {
             // console.log(data.field);
             var field = message.field;
-            console.log(field);
+            // console.log(field);
             table.reload('testReload', {
                 url: '/admin/adminGetHqStudent'
                 ,method: 'post'
@@ -180,7 +180,7 @@
         //申请删除学员
         function deletestudent(data) {
 
-            console.log('删除的学员为', data);
+            // console.log('删除的学员为', data);
             $.ajax({
                 method: 'post',
                 url: '/admin/deleteStudent',
@@ -188,7 +188,7 @@
                 contentType: 'application/json',
                 datatype: "json",
                 success: function (resp) {
-                    console.log(resp);
+                    // console.log(resp);
                     if (resp.code == 0) {
                         layer.msg(resp.msg, {icon: 6});
                         //刷新数据

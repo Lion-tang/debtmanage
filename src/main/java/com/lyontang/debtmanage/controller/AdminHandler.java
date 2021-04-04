@@ -6,12 +6,14 @@ import com.lyontang.debtmanage.entity.VO.DataVO;
 import com.lyontang.debtmanage.service.StudentService;
 import com.lyontang.debtmanage.service.UserService;
 import com.lyontang.debtmanage.utils.Md5Utils;
+import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -152,7 +154,7 @@ public class AdminHandler {
         return userService.adminGetAllStudent(page, limit, student);
     }
 
-    @RequestMapping(value = "/adminGetDivisionStudent")
+    @RequestMapping(value = "/adminGetDivisionStudent",method = RequestMethod.POST)
     @ResponseBody
     public  DataVO<StudentInfo> adminGetDivisionStudent(Integer page, Integer limit, Student student) {
         student.setRId("1");
@@ -205,7 +207,7 @@ public class AdminHandler {
         return userService.getPieData(startDate, endDate);
     }
 
-    @RequestMapping(value = "/getLineData")
+    @RequestMapping(value = "/getLineData",method = RequestMethod.POST)
     @ResponseBody
     public BarVO getLineData(@RequestBody DateRangeAndName dateRangeAndName) {
         String startDate = dateRangeAndName.getStartDate();
@@ -213,4 +215,6 @@ public class AdminHandler {
         String userName = dateRangeAndName.getUserName();
         return userService.getLineData(startDate, endDate, userName);
     }
+
+
 }

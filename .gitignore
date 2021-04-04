@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+### Js ###
+**/src/main/resources/static/layui/echarts.js
+**/src/main/resources/static/layui/jquery.js
+

@@ -192,7 +192,7 @@
                         if (data[0].roleName == 'user') {
                             layer.msg('删除用户');
                             layer.confirm('真的删除行么', function (index) {
-                                console.log(data);
+                                // console.log(data);
                                 var userName = data[0].userName;
                                 deleteuser(userName);
                             });
@@ -232,7 +232,7 @@
         form.on('submit(searchButton)', function (message) {
             // console.log(data.field);
             var field = message.field;
-            console.log(field);
+            // console.log(field);
             table.reload('testReload', {
                 url: '/admin/findByConditionVO'
                 , method: 'post'
@@ -266,7 +266,7 @@
         form.on('submit(addButton)', function (message) {
             // console.log(data.field);
             var field = message.field;
-            console.log('添加数据为', field);
+            // console.log('添加数据为', field);
             $.ajax({
                 method: "post",
                 url: "admin/addUser",
@@ -274,7 +274,7 @@
                 contentType: 'application/json',
                 datatype: "json",
                 success: function (resp) {
-                    console.log(resp);
+                    // console.log(resp);
                     layer.closeAll();//关闭所有的弹出层
                     if (resp.code == 0) {
                         layer.msg(resp.msg, {icon: 6});
@@ -308,7 +308,7 @@
             content: $("#popUpdateTest")//引用的弹出层的页面层的方式加载修改界面表单
         });
         // console.log("测试修改用户输出");//调试语句
-        console.log("修改前原始数据为：", data);//调试对象
+        // console.log("修改前原始数据为：", data);//调试对象
         // console.log("用户名类型", typeof data.userName);//调试属性
         // console.log("obj为：", obj);//调试对象
         form.on('submit(updateButton)', function (massage) {
@@ -317,7 +317,7 @@
             // console.log(massage.field);
             var data1 = massage.field;
             data1["userName"] = data.userName;
-            console.log("修改后数据", data1);
+            // console.log("修改后数据", data1);
             $.ajax({
                 method: "post",
                 url: "admin/updateUser",
@@ -326,7 +326,7 @@
                 contentType: 'application/json',
                 datatype: "json",
                 success: function (resp) {
-                    console.log('后台返回数据为', resp);
+                    // console.log('后台返回数据为', resp);
                     layer.closeAll();//关闭所有的弹出层
                     if (resp.code == 0) {
                         layer.msg(resp.msg, {icon: 6});
@@ -345,7 +345,7 @@
     //删除用户
     function deleteuser(userNameList) {
 
-        console.log('删除的用户为', userNameList);
+        // console.log('删除的用户为', userNameList);
         $.ajax({
             method: 'post',
             url: '/admin/deleteUser',
@@ -353,7 +353,7 @@
             contentType: 'application/json',
             datatype: "json",
             success: function (resp) {
-                console.log(resp);
+                // console.log(resp);
                 if (resp.code == 0) {
                     layer.msg(resp.msg, {icon: 6});
                     //刷新数据

@@ -29,10 +29,10 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         }
         //通过不同的角色转到不同的页面
         if ("ROLE_ADMIN".equals(role)) {
-        //管理员跳到管理员页面
+        //管理员请求管理员controller接口页面
             response.sendRedirect(basePath + "admin");
         } else {
-        //用户跳到用户页面
+        //用户请求用户controller接口页面
             response.sendRedirect(basePath + "user");
         }
 
