@@ -1,7 +1,9 @@
 package com.lyontang.debtmanage.utils;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MyPasswordEncoder implements PasswordEncoder {
     @Override
     public String encode(CharSequence charSequence) {

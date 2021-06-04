@@ -17,9 +17,9 @@ spring:
 #      name: admin
 #      password: 123456
   datasource:
-    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
-    username: root
-    password: root
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=UTF-8
+    username: temp
+    password: 123123
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis:

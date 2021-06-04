@@ -20,8 +20,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     UserService userService;
 
-
-    MyPasswordEncoder passwordEncoder=new MyPasswordEncoder();
+    @Autowired
+    MyPasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {

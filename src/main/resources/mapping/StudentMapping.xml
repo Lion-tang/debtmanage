@@ -13,7 +13,7 @@
    </insert>
 
     <update id="applyDeleteStudent" parameterType="java.util.List">
-        update  sys_student set wantDelete='Y'
+        update  sys_student set wantDelete='Y',deleteDate = curdate()
         <where>
             <foreach collection="idCardList" open="idCard in (" close=")" item="idCard" separator=",">
                 #{idCard}
@@ -22,7 +22,7 @@
     </update>
 
     <update id="recoverStudent" parameterType="java.lang.String">
-        update  sys_student set wantDelete='N' where idCard=#{idCard}
+        update  sys_student set wantDelete='N',deleteDate=null where idCard=#{idCard}
     </update>
 
     <select id="findAllStudent" resultType="com.lyontang.debtmanage.entity.StudentInfo" parameterType="java.lang.String">

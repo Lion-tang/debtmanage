@@ -41,8 +41,8 @@
             , url: "/user/wantDeleteVO" //数据接口
             , cols: [
                 [ //表头
-                    {type: 'checkbox', fixed: 'left'}
-                    , {field: 'studentName', title: '学员姓名', width: 180, fixed: 'left', align: "center", totalRowText: '合计'}
+
+                     {field: 'studentName', title: '学员姓名', width: 180, fixed: 'left', align: "center", totalRowText: '合计'}
                     , {field: 'idCard', title: '身份证号', width: 180, align: "center"}
                     , {field: 'sex', title: '性别', width: 180, align: "center"}
                     , {field: 'address', title: '地址', width: 180, align: "center"}
@@ -80,7 +80,7 @@
             // console.log('撤销的学员身份证为', data);
             $.ajax({
                 method: 'post',
-                url: '/admin/recoverStudent',
+                url: '/user/recoverStudent',
                 data: data,
                 contentType: 'application/json',
                 datatype: "json",

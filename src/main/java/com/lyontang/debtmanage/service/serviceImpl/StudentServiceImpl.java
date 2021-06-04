@@ -39,26 +39,20 @@ public class StudentServiceImpl implements StudentService  {
 
     @Override
     public DataVO<StudentInfo> findAllStudentVO(Integer page, Integer limit,String userName,String wantDelete) {
-        DataVO<StudentInfo> dataVO = new DataVO<>();
-        dataVO.setCode(0);
-        dataVO.setMsg("");
+
         PageHelper.startPage(page, limit);
         List<StudentInfo> list = studentMapper.findAllStudent(userName,wantDelete);
-        dataVO.setCount((int)((Page)list).getTotal());
-        dataVO.setData(list);
-        return dataVO;
+        int count = (int)((Page)list).getTotal();
+        return DataVO.getDataVO(count,list);
     }
 
     @Override
     public DataVO<StudentInfo> findByConditionVO(Integer page, Integer limit, StudentInfo studentInfo) {
-        DataVO<StudentInfo> dataVO = new DataVO<>();
-        dataVO.setCode(0);
-        dataVO.setMsg("");
+
         PageHelper.startPage(page, limit);
         List<StudentInfo> list = studentMapper.findByCondition(studentInfo);
-        dataVO.setCount((int)((Page)list).getTotal());
-        dataVO.setData(list);
-        return dataVO;
+        int count = (int)((Page)list).getTotal();
+        return DataVO.getDataVO(count,list);
     }
 
 

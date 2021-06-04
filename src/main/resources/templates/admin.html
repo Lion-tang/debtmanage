@@ -40,7 +40,7 @@
     <ul class="layui-nav layui-layout-right">
       <li class="layui-nav-item">
         <a href="javascript:;">
-          <img src="layui/images/face/admin.jpg" class="layui-nav-img">
+          <img src="layui/images/admin.jpg" class="layui-nav-img">
           管理员
         </a>
         <!--<dl class="layui-nav-child">-->
@@ -57,22 +57,22 @@
       <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
       <ul class="layui-nav layui-nav-tree"  lay-filter="test">
         <li class="layui-nav-item layui-nav-itemed ">
-          <a class="layui-this" href="javascript:;" onclick="change('manageuser')">管理代理驾校用户</a>
+          <a class="layui-this" href="javascript:;" onclick="change('admin_manageuser')">管理代理驾校用户</a>
 
         </li>
         <li class="layui-nav-item">
           <a >学员学籍管理</a>
           <dl class="layui-nav-child">
-            <dd><a href="javascript:;" onclick="change('studentinschool')">学籍录入及退档</a></dd>
-            <dd><a href="javascript:;" onclick="change('hqdeletestudent')">总校报名学员退档</a></dd>
-            <dd><a href="javascript:;" onclick="change('dvdeletestudent')">代理点学员退档</a></dd>
+            <dd><a href="javascript:;" onclick="change('admin_studentinschool')">学籍录入</a></dd>
+            <dd><a href="javascript:;" onclick="change('admin_hqdeletestudent')">总校报名学员退档</a></dd>
+            <dd><a href="javascript:;" onclick="change('admin_dvdeletestudent')">代理点学员退档</a></dd>
           </dl>
         </li>
         <li class="layui-nav-item"><a >统计图</a>
             <dl class="layui-nav-child">
-                <dd><a href="javascript:;" onclick="change('bar')">收入趋势分析</a></dd>
-                <dd><a href="javascript:;" onclick="change('pie')" >收入构成分析</a></dd>
-                <dd><a href="javascript:;" onclick="change('line')">大数据量流水分析</a></dd>
+                <dd><a href="javascript:;" onclick="change('admin_bar')">收入趋势分析</a></dd>
+                <dd><a href="javascript:;" onclick="change('admin_pie')" >收入构成分析</a></dd>
+                <dd><a href="javascript:;" onclick="change('admin_line')">大数据量流水分析</a></dd>
             </dl>
         </li>
 
@@ -82,7 +82,7 @@
   
   <div class="layui-body">
     <!-- 内容主体区域 -->
-    <iframe src="/manageuser" frameborder="0" id="demoAdmin" style="width: 100%; height: 100%;"></iframe>
+    <iframe src="/admin_manageuser" frameborder="0" id="demoAdmin" style="width: 100%; height: 100%;"></iframe>
   </div>
   
   <div class="layui-footer">

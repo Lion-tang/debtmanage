@@ -46,15 +46,7 @@ public class UserServiceImpl implements UserService {
         return userMapper.findUserRolePhoneByName(userName);
     }
 
-    //    减少设置VO重复代码
-    private  <T> DataVO<T> getDataVO(int count, List<T> list) {
-        DataVO<T> dataVO = new DataVO<>();
-        dataVO.setData(list);
-        dataVO.setCode(0);
-        dataVO.setCount(count);
-        dataVO.setMsg("");
-        return dataVO;
-    }
+
 
     @Override
     public DataVO<UserRolePhone> findAllUserRolePhoneVO(Integer page, Integer limit) {
@@ -63,7 +55,7 @@ public class UserServiceImpl implements UserService {
         PageHelper.startPage(page, limit);
         List<UserRolePhone> list = userMapper.findAllUserRolePhone();
         int count =(int)((Page)list).getTotal();
-        return getDataVO(count, list);
+        return DataVO.getDataVO(count, list);
     }
 
 
@@ -72,7 +64,7 @@ public class UserServiceImpl implements UserService {
         PageHelper.startPage(page, limit);
         List<UserRolePhone> list = userMapper.findByCondition(userName, phone);
         int count = (int)((Page)list).getTotal();
-        return getDataVO(count,list);
+        return DataVO.getDataVO(count,list);
     }
 
     @Override
@@ -82,7 +74,7 @@ public class UserServiceImpl implements UserService {
         PageHelper.startPage(page, limit);
         List<StudentInfo> list = userMapper.adminGetAllStudent(student);
         int count = (int)((Page)list).getTotal();
-        return getDataVO(count,list);
+        return DataVO.getDataVO(count,list);
     }
 
     @Override
@@ -90,26 +82,12 @@ public class UserServiceImpl implements UserService {
         return userMapper.deleteStudent(idCardList);
     }
 
-//    减少重复设置VO代码
-    private BarVO getBarVO(List list) {
-        BarVO barVO = new BarVO();
-        List<String> registerDates = new ArrayList<>();
-        List<Integer> amounts = new ArrayList<>();
-        Iterator iterator = list.iterator();
-        while (iterator.hasNext()) {
-            Bar bar = (Bar) iterator.next();
-            registerDates.add(bar.getRegisterDate());
-            amounts.add(bar.getAmount());
-        }
-        barVO.setRegisterDate(registerDates);
-        barVO.setAmount(amounts);
-        return barVO;
-    }
+
 
     @Override
     public BarVO getBarData(String startDate, String endDate) {
         List<Bar> barList =  userMapper.getBarData(startDate, endDate);
-        return getBarVO(barList);
+        return BarVO.getBarVO(barList);
 }
 
     @Override
@@ -121,7 +99,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public BarVO getLineData(String startDate, String endDate, String userName) {
         List<Bar> lineList = userMapper.getLineData(startDate, endDate, userName);
-        return getBarVO(lineList);
+        return BarVO.getBarVO(lineList);
     }
 
 

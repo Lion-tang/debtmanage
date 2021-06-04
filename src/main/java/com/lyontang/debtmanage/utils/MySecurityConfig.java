@@ -24,22 +24,31 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/layui/**");
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http
+                .authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").access("hasRole('USER') or hasRole('ADMIN')")
                 .anyRequest()
                 .authenticated()
                 .and()
                 .formLogin()
+                .loginPage("/login.html")
+                .loginProcessingUrl("/doLogin")
                 .successHandler(new LoginSuccessHandler())
                 .permitAll()
                 .and()
                 .logout()
                 .permitAll()
                 .logoutSuccessUrl("/login")
+                .deleteCookies()  //deleteCookies 用来清除 cookie。
                 .invalidateHttpSession(true)
-                .clearAuthentication(true)
+                .clearAuthentication(true) //clearAuthentication 和 invalidateHttpSession 分别表示清除认证信息和使 HttpSession 失效，默认可以不用配置，默认就会清除。
                 .and()
                 .headers()
                 .frameOptions()
@@ -48,7 +57,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .rememberMe()
-                ;
+            ;
 
 
     }

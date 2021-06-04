@@ -95,7 +95,7 @@
 
     <select id="adminGetAllStudent" resultType="com.lyontang.debtmanage.entity.StudentInfo"
             parameterType="com.lyontang.debtmanage.entity.Student">
-        select studentName,idCard,sex,address,phone,amount,registerDate,userName from sys_student
+        select studentName,idCard,sex,address,phone,amount,registerDate,deleteDate,userName from sys_student
         <include refid="studentcondition"></include>
     </select>
 
